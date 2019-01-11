@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using WMPLib;
 using System;
 using Microsoft.Win32;
+using System.Timers;
+
 
 namespace Logic
 {
@@ -17,12 +19,14 @@ namespace Logic
         public Player()
         {
             player = new WindowsMediaPlayer();
-            //player.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(Next);
             player.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(EndOfStreamCallback);
-            //player.EndOfStream += new WMPLib._WMPOCXEvents_EndOfStreamEventHandler(EndOfStreamCallback);
-
 
             playlist = new List<string>();
+
+            timerUpdateSongInfo = new System.Timers.Timer();
+            timerUpdateSongInfo.Interval = 500;
+            timerUpdateSongInfo.Elapsed += timerUpdateSongInfoEvent;
+            timerUpdateSongInfo.AutoReset = true;
         }
         #endregion
 
@@ -31,6 +35,7 @@ namespace Logic
         /// Music player instance, using WindowsMediaPlayer class
         /// </summary>
         private WindowsMediaPlayer player;
+        private System.Timers.Timer timerUpdateSongInfo;
 
 
         /// <summary>
@@ -44,7 +49,14 @@ namespace Logic
         /// </summary>
         private int currentPlayedItem = 0;
 
+        /// <summary>
+        /// Helper variable. Used to deal with weird WMPLIB change play state behavior.
+        /// </summary>
         private int lastManuallySetState = -1;
+        /// <summary>
+        /// Helper variable. Used to deal with weird WMPLIB change play state behavior.
+        /// Counts how many times "Ready" occurs.
+        /// </summary>
         private int readyCounter = 0;
 
         #endregion
@@ -54,6 +66,7 @@ namespace Logic
         /// Returns amount of tracks in queue to play.
         /// </summary>
         public int PlaylistCount { get { return playlist.Count; } private set { } }
+
 
         /// <summary>
         /// Represents the volume of playback.
@@ -102,9 +115,21 @@ namespace Logic
         /// </summary>
         public double CurrentSongRemainingTime {  get { return GetRemainingTime(); } private set { } }
 
+        /// <summary>
+        /// Returns value [0,100] corresponding to current playback time / duration.
+        /// Use for updating song time progressbar with max value 100.
+        /// </summary>
+        public int PlaybackDisplayPosition { get { return GetPlaybackDisplayPosition(); } private set { } }
+
+
         #endregion
 
         #region METHODS
+
+        /// <summary>
+        /// Populating playlist with filenames passed from filedialog result.
+        /// </summary>
+        /// <param name="filenames"></param>
         public void AddSelectedMusicToPlaylist(string[] filenames)
         {
             if(filenames != null)
@@ -124,6 +149,10 @@ namespace Logic
             Console.WriteLine("play() with status " + player.playState.ToString());
             player.URL = playlist[currentPlayedItem];
             player.controls.play();
+
+            timerUpdateSongInfo.Enabled = true;
+            timerUpdateSongInfo.Start();
+            startViewTimers();
         }
         /// <summary>
         /// Plays next track in playlist. Current playing track is first stopped.
@@ -179,10 +208,61 @@ namespace Logic
             Play();
         }
 
+        /// <summary>
+        /// Sets the playback volume.
+        /// </summary>
+        /// <param name="value"></param>
         public void SetVolume(int value)
         {
             Volume = value;
             player.settings.volume = Volume;
+        }
+
+        /// <summary>
+        /// Sets the playback position from the double click event position.
+        /// </summary>
+        /// <param name="clickValue"></param>
+        public void SetPlaybackPosition(double clickValue)
+        {
+            if (PlaylistCount > 0)
+            {
+                double secondsValue = CurrentSongDuration * (clickValue / 100f);
+                player.controls.currentPosition = secondsValue;
+            }
+        }
+        /// <summary>
+        /// Delete current playing song from playlist.
+        /// </summary>
+        public void DeleteCurrentPlayingSong()
+        {
+            if (playlist.Count > 0)
+            {
+                Stop();
+                playlist.RemoveAt(currentPlayedItem);
+                currentPlayedItem--;
+                if (currentPlayedItem < 0) currentPlayedItem = 0;
+
+                if (playlist.Count == 0)
+                {
+                    SongAlbum = SongArtist = SongTitle = "";
+
+                    timerUpdateSongInfo.Enabled = true;
+                    timerUpdateSongInfo.Start();
+                }
+                else Next();
+
+            }
+
+        }
+
+        /// <summary>
+        /// Returns the elapsed time / song duration in %.
+        /// </summary>
+        /// <returns></returns>
+        private int GetPlaybackDisplayPosition()
+        {
+            double result = (CurrentSongTime / CurrentSongDuration) * 100;
+            return (int)result;
         }
 
         /// <summary>
@@ -312,10 +392,22 @@ namespace Logic
                 default: Console.WriteLine("other");
                     break;
             }
-       //     Next();
+
         }
 
-       
+        /// <summary>
+        /// Callback invoked by timerUpdateSongInfo.
+        /// Used to update UI by invoking UI updating callback.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void timerUpdateSongInfoEvent(Object source, ElapsedEventArgs e)
+        {
+            // update song info view after ~1sec
+            songInfoViewUpdate();
+            timerUpdateSongInfo.Stop();
+            timerUpdateSongInfo.Enabled = false;
+        }
 
         /// <summary>
         /// Returns song duration from WMPLIB object.
@@ -333,6 +425,19 @@ namespace Logic
         public List<string> D_playlistItems()
         {
             return playlist;
+        }
+        #endregion
+
+        #region Delegates
+        public delegate void UpdateSongInfoView(); 
+        public UpdateSongInfoView songInfoViewUpdate = new UpdateSongInfoView(Foo);
+
+        public delegate void StartViewTimers();
+        public StartViewTimers startViewTimers = new StartViewTimers(Foo);
+        public delegate void StopViewTimers();
+        public StopViewTimers stopViewTimers = new StopViewTimers(Foo);
+        private static void Foo()
+        { //
         }
         #endregion
     }
