@@ -42,6 +42,9 @@ namespace Logic
         /// List of all selected tracks paths.
         /// </summary>
         private List<string> playlist;
+
+        private bool playlistPopulated = false;
+
         private bool shufflePlaylist = false;
 
         /// <summary>
@@ -66,6 +69,10 @@ namespace Logic
         /// Returns amount of tracks in queue to play.
         /// </summary>
         public int PlaylistCount { get { return playlist.Count; } private set { } }
+
+        public int CurrentPlayedID { get { return currentPlayedItem; } private set { } }
+
+        public string CurrentPlayedPath { get { return player.URL; } private set { } }
 
 
         /// <summary>
@@ -121,6 +128,11 @@ namespace Logic
         /// </summary>
         public int PlaybackDisplayPosition { get { return GetPlaybackDisplayPosition(); } private set { } }
 
+        /// <summary>
+        /// Returns the playback marker position, and when set - playback position in seconds is calculated.
+        /// </summary>
+        public double PlaybackPositionMarker { get { return GetPlaybackDisplayPosition(); } private set { } }
+
 
         #endregion
 
@@ -139,6 +151,7 @@ namespace Logic
                     playlist.Add(path);
                 }
             }
+            if (playlist.Count > 0) playlistPopulated = true;
             
         }
         /// <summary>
@@ -187,22 +200,27 @@ namespace Logic
         /// </summary>
         public void Previous()
         {
-
-            if(!Repeat)
+            if (!Repeat)
             {
                 if (!shufflePlaylist)
                 {
-                    if (currentPlayedItem < playlist.Count - 1) currentPlayedItem++;
-                    else currentPlayedItem = 0;
+                    if (currentPlayedItem > 0) currentPlayedItem--;
+                    else currentPlayedItem = PlaylistCount - 1;
                 }
                 else
                 {
-
-                    if (currentPlayedItem > 0) currentPlayedItem--;
-                    else currentPlayedItem = playlist.Count - 1;
-                    if (currentPlayedItem < 0) currentPlayedItem = 0;
+                    Random random = new Random();
+                    int randomSong = currentPlayedItem;
+                    if (currentPlayedItem < playlist.Count - 1)
+                    {
+                        while (randomSong == currentPlayedItem)
+                        {
+                            randomSong = random.Next(0, PlaylistCount);
+                        }
+                    }
+                    currentPlayedItem = randomSong;
                 }
-            }          
+            }
 
             Stop();
             Play();
@@ -222,12 +240,19 @@ namespace Logic
         /// Sets the playback position from the double click event position.
         /// </summary>
         /// <param name="clickValue"></param>
-        public void SetPlaybackPosition(double clickValue)
+        public void SetPlaybackMarker(double clickValue)
         {
-            if (PlaylistCount > 0)
+            PlaybackPositionMarker = clickValue;
+            SetPlaybackPosition(clickValue);
+        }
+
+        private void SetPlaybackPosition(double clickValue)
+        {
+            if (playlistPopulated)
             {
                 double secondsValue = CurrentSongDuration * (clickValue / 100f);
                 player.controls.currentPosition = secondsValue;
+
             }
         }
         /// <summary>
@@ -261,8 +286,13 @@ namespace Logic
         /// <returns></returns>
         private int GetPlaybackDisplayPosition()
         {
-            double result = (CurrentSongTime / CurrentSongDuration) * 100;
-            return (int)result;
+            if (playlistPopulated)
+            {
+                double result = (CurrentSongTime / CurrentSongDuration) * 100;
+                return (int)result;
+            }
+            else return 0;
+            
         }
 
         /// <summary>
@@ -271,13 +301,19 @@ namespace Logic
         /// <returns>Song's title.</returns>
         private string GetSongTitle()
         {
-            if(player.playState == WMPPlayState.wmppsReady || player.playState ==  WMPPlayState.wmppsPlaying || player.playState == WMPPlayState.wmppsBuffering
-                || player.playState == WMPPlayState.wmppsWaiting || player.playState == WMPPlayState.wmppsUndefined || player.playState == WMPPlayState.wmppsStopped || player.playState == WMPPlayState.wmppsTransitioning)
+            if (playlistPopulated)
             {
+
+
+                if (player.playState == WMPPlayState.wmppsReady || player.playState == WMPPlayState.wmppsPlaying || player.playState == WMPPlayState.wmppsBuffering
+                || player.playState == WMPPlayState.wmppsWaiting || player.playState == WMPPlayState.wmppsUndefined || player.playState == WMPPlayState.wmppsStopped || player.playState == WMPPlayState.wmppsTransitioning)
+                {
+                    return player.currentMedia.getItemInfo("Title");
+                }
+                //return "";
                 return player.currentMedia.getItemInfo("Title");
             }
-            //return "";
-            return player.currentMedia.getItemInfo("Title");
+            else return "";
         }
         /// <summary>
         /// Get artist of the current playing (or ready to be played) song.
@@ -285,11 +321,17 @@ namespace Logic
         /// <returns>Song's artist.</returns>
         private string GetSongArtist()
         {
-            if (player.playState == WMPPlayState.wmppsReady || player.playState == WMPPlayState.wmppsPlaying)
+            if (playlistPopulated)
             {
+
+
+                if (player.playState == WMPPlayState.wmppsReady || player.playState == WMPPlayState.wmppsPlaying)
+                {
+                    return player.currentMedia.getItemInfo("Artist");
+                }
                 return player.currentMedia.getItemInfo("Artist");
             }
-            return player.currentMedia.getItemInfo("Artist");
+            else return "";
 
         }
         /// <summary>
@@ -298,11 +340,15 @@ namespace Logic
         /// <returns>Song's album.</returns>
         private string GetSongAlbum()
         {
-            if (player.playState == WMPPlayState.wmppsReady || player.playState == WMPPlayState.wmppsPlaying)
+            if (playlistPopulated)
             {
+                if (player.playState == WMPPlayState.wmppsReady || player.playState == WMPPlayState.wmppsPlaying)
+                {
+                    return player.currentMedia.getItemInfo("Album");
+                }
                 return player.currentMedia.getItemInfo("Album");
             }
-            return player.currentMedia.getItemInfo("Album");
+            else return "";
         }
 
         /// <summary>
@@ -311,7 +357,9 @@ namespace Logic
         /// <returns>Current playback position in seconds.</returns>
         private double GetElapsedTime()
         {
-            return player.controls.currentPosition;
+            if (playlistPopulated)
+                return player.controls.currentPosition;
+            else return 0;
         }
         /// <summary>
         /// Returns remaining time.
@@ -319,7 +367,9 @@ namespace Logic
         /// <returns>Difference between song duration and playback time.</returns>
         private double GetRemainingTime()
         {
-            return CurrentSongDuration - GetElapsedTime();
+            if (playlistPopulated)
+                return CurrentSongDuration - GetElapsedTime();
+            else return 0;
         }
         /// <summary>
         /// Stop the playback.
