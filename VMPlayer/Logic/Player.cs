@@ -20,13 +20,9 @@ namespace Logic
         {
             player = new WindowsMediaPlayer();
             player.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(EndOfStreamCallback);
+            player.PlayStateChange += OnPlayStateChange;
 
             playlist = new List<string>();
-
-            timerUpdateSongInfo = new System.Timers.Timer();
-            timerUpdateSongInfo.Interval = 500;
-            timerUpdateSongInfo.Elapsed += timerUpdateSongInfoEvent;
-            timerUpdateSongInfo.AutoReset = true;
         }
         #endregion
 
@@ -35,7 +31,6 @@ namespace Logic
         /// Music player instance, using WindowsMediaPlayer class
         /// </summary>
         private WindowsMediaPlayer player;
-        private System.Timers.Timer timerUpdateSongInfo;
 
 
         /// <summary>
@@ -162,10 +157,7 @@ namespace Logic
             Console.WriteLine("play() with status " + player.playState.ToString());
             player.URL = playlist[currentPlayedItem];
             player.controls.play();
-
-            timerUpdateSongInfo.Enabled = true;
-            timerUpdateSongInfo.Start();
-            startViewTimers();
+          
         }
         /// <summary>
         /// Plays next track in playlist. Current playing track is first stopped.
@@ -269,10 +261,7 @@ namespace Logic
 
                 if (playlist.Count == 0)
                 {
-                    SongAlbum = SongArtist = SongTitle = "";
-
-                    timerUpdateSongInfo.Enabled = true;
-                    timerUpdateSongInfo.Start();
+                    SongAlbum = SongArtist = SongTitle = "";                   
                 }
                 else Next();
 
@@ -445,19 +434,6 @@ namespace Logic
 
         }
 
-        /// <summary>
-        /// Callback invoked by timerUpdateSongInfo.
-        /// Used to update UI by invoking UI updating callback.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
-        private void timerUpdateSongInfoEvent(Object source, ElapsedEventArgs e)
-        {
-            // update song info view after ~1sec
-            songInfoViewUpdate();
-            timerUpdateSongInfo.Stop();
-            timerUpdateSongInfo.Enabled = false;
-        }
 
         /// <summary>
         /// Returns song duration from WMPLIB object.
@@ -479,16 +455,26 @@ namespace Logic
         #endregion
 
         #region Delegates
-        public delegate void UpdateSongInfoView(); 
-        public UpdateSongInfoView songInfoViewUpdate = new UpdateSongInfoView(Foo);
-
-        public delegate void StartViewTimers();
-        public StartViewTimers startViewTimers = new StartViewTimers(Foo);
-        public delegate void StopViewTimers();
-        public StopViewTimers stopViewTimers = new StopViewTimers(Foo);
+        
+        
         private static void Foo()
-        { //
+        { // just used to avoid not initialized callback execution
         }
+        public delegate void PlayStateChanged();
+        /// <summary>
+        /// Add method updating song info UI(title, artist, album) to this delegate
+        /// This method updates UI as fast as song details are available
+        /// </summary>
+        public PlayStateChanged playStateChanged = new PlayStateChanged(Foo);
+
+        private void OnPlayStateChange(int _newstate)
+        {
+            if ((WMPLib.WMPPlayState)_newstate == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                playStateChanged();
+            }
+        }
+
         #endregion
     }
 }
