@@ -19,10 +19,15 @@ namespace Logic
         public Player()
         {
             player = new WindowsMediaPlayer();
-            player.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(EndOfStreamCallback);
+           // player.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(EndOfStreamCallback);
             player.PlayStateChange += OnPlayStateChange;
 
             playlist = new List<string>();
+
+            timerOnPlayChange_Play = new System.Timers.Timer();
+            timerOnPlayChange_Play.Interval = 500;
+            timerOnPlayChange_Play.Elapsed += delayedPlay;
+            timerOnPlayChange_Play.AutoReset = true;
         }
         #endregion
 
@@ -32,6 +37,7 @@ namespace Logic
         /// </summary>
         private WindowsMediaPlayer player;
 
+        private System.Timers.Timer timerOnPlayChange_Play;
 
         /// <summary>
         /// List of all selected tracks paths.
@@ -41,6 +47,9 @@ namespace Logic
         private bool playlistPopulated = false;
 
         private bool shufflePlaylist = false;
+
+        private bool playbackWasPaused = false;
+        private double pausedPlaybackPosition;
 
         /// <summary>
         /// Current played track. References to specific index in trackURLS list.
@@ -128,6 +137,19 @@ namespace Logic
         /// </summary>
         public double PlaybackPositionMarker { get { return GetPlaybackDisplayPosition(); } private set { } }
 
+        /// <summary>
+        /// Returns true if playback is paused.
+        /// </summary>
+        public bool PlaybackPaused
+        {
+            get
+            {
+                if (player.playState == WMPPlayState.wmppsPaused) return true;
+                else if (player.playState == WMPPlayState.wmppsPlaying) return false;
+                return true;
+            }
+            private set { }
+        }
 
         #endregion
 
@@ -154,7 +176,9 @@ namespace Logic
         /// </summary>
         public void Play()
         {
+            //debug
             Console.WriteLine("play() with status " + player.playState.ToString());
+
             player.URL = playlist[currentPlayedItem];
             player.controls.play();
           
@@ -184,7 +208,7 @@ namespace Logic
             }           
 
             Stop();
-            Play();
+            //Play();
         }
 
         /// <summary>
@@ -215,7 +239,7 @@ namespace Logic
             }
 
             Stop();
-            Play();
+            //Play();
         }
 
         /// <summary>
@@ -473,6 +497,35 @@ namespace Logic
             {
                 playStateChanged();
             }
+            if ((WMPLib.WMPPlayState)_newstate == WMPLib.WMPPlayState.wmppsMediaEnded)
+            {
+                Next();
+            }
+            if ((WMPLib.WMPPlayState)_newstate == WMPLib.WMPPlayState.wmppsReady)
+            {
+                readyCounter++;
+                if (readyCounter == 2)
+                {
+                    timerOnPlayChange_Play.Enabled = true;
+                    timerOnPlayChange_Play.Start();
+                    readyCounter = 0;
+                }
+            }
+            if ((WMPLib.WMPPlayState)_newstate == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                //Play();
+                timerOnPlayChange_Play.Enabled = true;
+
+                timerOnPlayChange_Play.Start();
+            }
+        } 
+
+        private void delayedPlay(Object source, ElapsedEventArgs e)
+        {
+            Play();
+            readyCounter = 0;
+            timerOnPlayChange_Play.Stop();
+            timerOnPlayChange_Play.Enabled = false;
         }
 
         #endregion

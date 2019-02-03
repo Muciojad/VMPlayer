@@ -56,6 +56,17 @@ namespace Player_UnitTests
             player.Play();
             Assert.AreEqual(test_caseTracks[0], player.CurrentPlayedPath);
         }
+        `
+        [TestMethod]
+        public void PauseSong_OK()
+        {
+            SetPath();
+            Player player = new Player();
+            player.AddSelectedMusicToPlaylist(test_caseTracks);
+            player.Play();
+            player.Pause();
+            Assert.AreEqual(true, player.PlaybackPaused);
+        }
 
         [TestMethod]
         public void PlayPrevSong_OK()
