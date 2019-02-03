@@ -19,10 +19,12 @@ namespace Tests_Logic
             Player musicPlayer = new Player();
 
             musicPlayer.AddSelectedMusicToPlaylist(testFilepaths);
-            musicPlayer.Play();
+            musicPlayer.Resume();
             bool loop = true;
             ConsoleKeyInfo input;
-            while(loop)
+            musicPlayer.SetVolume(50);
+
+            while (loop)
             {
                 input = Console.ReadKey();
                 if (input.Key == ConsoleKey.Escape) loop = false;
@@ -34,7 +36,8 @@ namespace Tests_Logic
                 }
                 if (input.Key == ConsoleKey.V)
                 {
-                    musicPlayer.SetVolume(50);
+                    if (!musicPlayer.PlaybackPaused) musicPlayer.Pause();
+                    else musicPlayer.Resume();
                 }
                 Console.WriteLine("Title: " + GetSongTitle(musicPlayer));
                 Console.WriteLine("Artist: " + GetSongArtist(musicPlayer));

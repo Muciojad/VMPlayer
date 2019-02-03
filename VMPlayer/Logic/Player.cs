@@ -28,6 +28,18 @@ namespace Logic
             timerOnPlayChange_Play.Interval = 500;
             timerOnPlayChange_Play.Elapsed += delayedPlay;
             timerOnPlayChange_Play.AutoReset = true;
+
+            resumingTimer = new Timer(500);
+            resumingTimer.Elapsed += Unpause;
+            resumingTimer.AutoReset = true;
+
+        }
+
+        private void Unpause(object sender, ElapsedEventArgs e)
+        {
+            PlaybackPaused = false;
+            resumingTimer.Enabled = false;
+            resumingTimer.Stop();
         }
         #endregion
 
@@ -38,6 +50,7 @@ namespace Logic
         private WindowsMediaPlayer player;
 
         private System.Timers.Timer timerOnPlayChange_Play;
+        private System.Timers.Timer resumingTimer;
 
         /// <summary>
         /// List of all selected tracks paths.
@@ -48,7 +61,6 @@ namespace Logic
 
         private bool shufflePlaylist = false;
 
-        private bool playbackWasPaused = false;
         private double pausedPlaybackPosition;
 
         /// <summary>
@@ -140,16 +152,8 @@ namespace Logic
         /// <summary>
         /// Returns true if playback is paused.
         /// </summary>
-        public bool PlaybackPaused
-        {
-            get
-            {
-                if (player.playState == WMPPlayState.wmppsPaused) return true;
-                else if (player.playState == WMPPlayState.wmppsPlaying) return false;
-                return true;
-            }
-            private set { }
-        }
+        public bool PlaybackPaused = false;
+        
 
         #endregion
 
@@ -174,7 +178,7 @@ namespace Logic
         /// <summary>
         /// Plays current item in playlist.
         /// </summary>
-        public void Play()
+        private void Play()
         {
             //debug
             Console.WriteLine("play() with status " + player.playState.ToString());
@@ -182,6 +186,30 @@ namespace Logic
             player.URL = playlist[currentPlayedItem];
             player.controls.play();
           
+        }
+        /// <summary>
+        /// Resume playback.
+        /// </summary>
+        public void Resume()
+        {
+            if (PlaybackPaused)
+            {
+                //PlaybackPaused = false;
+                resumingTimer.Enabled = true;
+                resumingTimer.Start();
+            }
+            Play();
+            player.controls.currentPosition = pausedPlaybackPosition;
+        }
+
+        /// <summary>
+        /// Pause playback.
+        /// </summary>
+        public void Pause()
+        {
+            pausedPlaybackPosition = CurrentSongTime;
+            player.controls.pause();
+            PlaybackPaused = true;
         }
         /// <summary>
         /// Plays next track in playlist. Current playing track is first stopped.
@@ -393,70 +421,6 @@ namespace Logic
         }
 
 
-        /// <summary>
-        /// Invoked by WMPLIB callback, when play state is changed. Used to play next song when current ended.
-        /// Weird thing - ready state have to be reached two times before next song could be played.
-        /// When trying play next song and ready state is reached first time, exception is thrown.
-        /// </summary>
-        /// <param name="state"></param>
-        private void EndOfStreamCallback(int state)
-        {
-            Console.Write("playback state change to state ");
-            switch(state)
-            {
-                case (int)WMPPlayState.wmppsStopped:
-                    Console.WriteLine("Stopped");
-                    break;
-                case (int)WMPPlayState.wmppsWaiting:
-                    Console.WriteLine("waiting");
-                    break;
-                case (int)WMPPlayState.wmppsReady:
-                    Console.WriteLine("ready");
-                    if(readyCounter == 0)
-                    {
-                        if (lastManuallySetState == (int)WMPPlayState.wmppsMediaEnded)
-                        {
-                            readyCounter++;                           
-                        }
-                    }
-                    else
-                    {
-                        readyCounter++;
-                        if(readyCounter == 2)
-                        {
-                            Next();
-                            readyCounter = 0;
-                        }
-                    }
-                    
-                  
-                    break;
-                case (int)WMPPlayState.wmppsPaused:
-                    Console.WriteLine("paused");
-                    break;
-                case (int)WMPPlayState.wmppsPlaying:
-                    Console.WriteLine("playing");
-                    break;
-                case (int)WMPPlayState.wmppsBuffering:
-                    Console.WriteLine("buffering");
-                    break;
-                case (int)WMPPlayState.wmppsMediaEnded:
-                    lastManuallySetState = state;
-                    Console.WriteLine("media ended");
-                    Next();
-
-                    break;
-                case (int)WMPPlayState.wmppsUndefined:
-                    Console.WriteLine("undefined");
-                    break;
-                case (int)WMPPlayState.wmppsTransitioning:
-                    Console.WriteLine("transitioning");
-                    break;
-                default: Console.WriteLine("other");
-                    break;
-            }
-
-        }
 
 
         /// <summary>
@@ -506,8 +470,12 @@ namespace Logic
                 readyCounter++;
                 if (readyCounter == 2)
                 {
-                    timerOnPlayChange_Play.Enabled = true;
-                    timerOnPlayChange_Play.Start();
+                    if(!PlaybackPaused)
+                    {
+                        Console.WriteLine("wyzwalam timer");
+                        timerOnPlayChange_Play.Enabled = true;
+                        timerOnPlayChange_Play.Start();
+                    }                    
                     readyCounter = 0;
                 }
             }
@@ -522,6 +490,7 @@ namespace Logic
 
         private void delayedPlay(Object source, ElapsedEventArgs e)
         {
+            Console.WriteLine("ciepieron");
             Play();
             readyCounter = 0;
             timerOnPlayChange_Play.Stop();
