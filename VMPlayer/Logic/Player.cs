@@ -16,10 +16,12 @@ namespace Logic
     public class Player
     {
         #region Constructor
+        /// <summary>
+        /// Main constructor for the Player instances.
+        /// </summary>
         public Player()
         {
             player = new WindowsMediaPlayer();
-           // player.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(EndOfStreamCallback);
             player.PlayStateChange += OnPlayStateChange;
 
             playlist = new List<string>();
@@ -71,7 +73,6 @@ namespace Logic
         /// <summary>
         /// Helper variable. Used to deal with weird WMPLIB change play state behavior.
         /// </summary>
-        private int lastManuallySetState = -1;
         /// <summary>
         /// Helper variable. Used to deal with weird WMPLIB change play state behavior.
         /// Counts how many times "Ready" occurs.
@@ -86,11 +87,7 @@ namespace Logic
         /// </summary>
         public int PlaylistCount { get { return playlist.Count; } private set { } }
 
-        public int CurrentPlayedID { get { return currentPlayedItem; } private set { } }
-
-        public string CurrentPlayedPath { get { return player.URL; } private set { } }
-
-
+        
         /// <summary>
         /// Represents the volume of playback.
         /// </summary>
@@ -180,9 +177,6 @@ namespace Logic
         /// </summary>
         private void Play()
         {
-            //debug
-            Console.WriteLine("play() with status " + player.playState.ToString());
-
             player.URL = playlist[currentPlayedItem];
             player.controls.play();
           
@@ -418,6 +412,8 @@ namespace Logic
         private void Stop()
         {
             player.controls.stop();
+            PlaybackPaused = false;
+            pausedPlaybackPosition = 0;
         }
 
 
@@ -435,12 +431,6 @@ namespace Logic
 
         #endregion
 
-        #region DebugMethods
-        public List<string> D_playlistItems()
-        {
-            return playlist;
-        }
-        #endregion
 
         #region Delegates
         
@@ -448,6 +438,9 @@ namespace Logic
         private static void Foo()
         { // just used to avoid not initialized callback execution
         }
+        /// <summary>
+        /// Delegate definition for callbacks invoked when WMPLIB playState changes.
+        /// </summary>
         public delegate void PlayStateChanged();
         /// <summary>
         /// Add method updating song info UI(title, artist, album) to this delegate
@@ -472,7 +465,6 @@ namespace Logic
                 {
                     if(!PlaybackPaused)
                     {
-                        Console.WriteLine("wyzwalam timer");
                         timerOnPlayChange_Play.Enabled = true;
                         timerOnPlayChange_Play.Start();
                     }                    
@@ -490,7 +482,6 @@ namespace Logic
 
         private void delayedPlay(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("ciepieron");
             Play();
             readyCounter = 0;
             timerOnPlayChange_Play.Stop();
