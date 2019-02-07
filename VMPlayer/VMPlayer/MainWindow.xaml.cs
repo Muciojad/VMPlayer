@@ -24,9 +24,6 @@ namespace VMPlayer
     public partial class MainWindow : Window
     {
         private Player musicPlayer = new Player();
-        private List<string> tracklist = new List<string>();
-
-        private Timer viewUpdateTimer = new Timer();
 
         public MainWindow()
         {
@@ -62,6 +59,7 @@ namespace VMPlayer
             dlg.Multiselect = true;
             dlg.Filter = "Mp3 files (.mp3)|*.mp3|WAV files (.wav)|*.wav";
             bool? result = dlg.ShowDialog();
+
             bool playOnLoad = false;
             if (result != null)
             {
