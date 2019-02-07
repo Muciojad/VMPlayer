@@ -3,8 +3,9 @@ C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\bin\Debug\Tests
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\bin\Debug\Tests_Logic.pdb
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\bin\Debug\Logic.dll
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\bin\Debug\Logic.pdb
-C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\obj\Debug\Tests_Logic.csprojResolveAssemblyReference.cache
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\obj\Debug\Tests_Logic.csproj.CoreCompileInputs.cache
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\obj\Debug\Tests_Logic.csproj.CopyComplete
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\obj\Debug\Tests_Logic.exe
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\obj\Debug\Tests_Logic.pdb
+C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\bin\Debug\Logic.xml
+C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Tests_Logic\obj\Debug\Tests_Logic.csprojAssemblyReference.cache

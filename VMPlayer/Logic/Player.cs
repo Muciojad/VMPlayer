@@ -98,6 +98,16 @@ namespace Logic
         /// </summary>
         public bool Repeat = false;
 
+        /// <summary>
+        /// Returns current played item ID.
+        /// </summary>
+        public int CurrentPlayedID { get { return currentPlayedItem; } private set { } }
+        
+        /// <summary>
+        /// Returns current played item path.
+        /// </summary>
+        public string CurrentPlayedPath { get { return player.URL; } private set { } }
+
 
         /// <summary>
         /// Returns current playing(or ready to be played) song name.

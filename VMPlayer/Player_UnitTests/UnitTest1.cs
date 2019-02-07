@@ -53,17 +53,17 @@ namespace Player_UnitTests
             SetPath();
             Player player = new Player();
             player.AddSelectedMusicToPlaylist(test_caseTracks);
-            player.Play();
+            player.Resume();
             Assert.AreEqual(test_caseTracks[0], player.CurrentPlayedPath);
         }
-        `
+        
         [TestMethod]
         public void PauseSong_OK()
         {
             SetPath();
             Player player = new Player();
             player.AddSelectedMusicToPlaylist(test_caseTracks);
-            player.Play();
+            player.Resume();
             player.Pause();
             Assert.AreEqual(true, player.PlaybackPaused);
         }
@@ -91,7 +91,7 @@ namespace Player_UnitTests
             SetPath();
             Player player = new Player();
             player.AddSelectedMusicToPlaylist(test_caseTracks);
-            player.Play();
+            player.Resume();
             int currentPlayCount = player.PlaylistCount;
             player.DeleteCurrentPlayingSong();
             int deletePlayCount = player.PlaylistCount;
@@ -166,7 +166,7 @@ namespace Player_UnitTests
             SetPath();
             Player player = new Player();
             player.AddSelectedMusicToPlaylist(test_caseTracks);
-            player.Play();
+            player.Resume();
             int currentVolume = player.Volume;
             player.SetVolume(50);
             int changedVolume = player.Volume;
@@ -179,7 +179,7 @@ namespace Player_UnitTests
             SetPath();
             Player player = new Player();
             player.AddSelectedMusicToPlaylist(test_caseTracks);
-            player.Next();
+            player.Resume();
             double currentMarker = 0;
 
             player.SetPlaybackMarker(10);
