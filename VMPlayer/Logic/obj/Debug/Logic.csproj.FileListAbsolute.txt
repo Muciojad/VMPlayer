@@ -5,3 +5,4 @@ C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Logic\obj\Debug\Logic.cspro
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cache
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Logic\obj\Debug\Logic.dll
 C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Logic\obj\Debug\Logic.pdb
+C:\Users\Muciojad\Documents\GitHub\VMPlayer\VMPlayer\Logic\obj\Debug\Logic.csprojResolveAssemblyReference.cache
