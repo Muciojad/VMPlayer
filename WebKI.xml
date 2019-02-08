@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="AddSelectedMusicToPlaylist method" Url="html/896b3872-f495-50b1-1b25-e2ea59e20010.htm" />
+  <HelpKINode Title="CurrentPlayedID property" Url="html/261e1c79-d5ce-d434-0ff0-0e0387783ed1.htm" />
+  <HelpKINode Title="CurrentPlayedPath property" Url="html/bf43f7e0-f5f7-25c5-1da1-d5fef79b9951.htm" />
+  <HelpKINode Title="CurrentSongDuration property" Url="html/a930fae7-966b-df0d-8333-83249e11faf6.htm" />
+  <HelpKINode Title="CurrentSongRemainingTime property" Url="html/3ea7c399-1654-4e41-daea-0e9c363fb8b8.htm" />
+  <HelpKINode Title="CurrentSongTime property" Url="html/15419a56-726b-6026-111e-5318c0a47849.htm" />
+  <HelpKINode Title="DeleteCurrentPlayingSong method" Url="html/a3a86169-46c7-f242-be3f-10c4cab84d60.htm" />
+  <HelpKINode Title="Logic namespace" Url="html/a395d476-45cf-a4e3-1310-e5365a23597b.htm" />
+  <HelpKINode Title="Logic.Player class" Url="html/7ee777aa-6d48-1ab0-440b-4d5664738508.htm" />
+  <HelpKINode Title="Logic.Player.PlayStateChanged delegate" Url="html/e8f9b26e-c3fa-11d5-0bd5-eee668da329c.htm" />
+  <HelpKINode Title="Next method" Url="html/7f038b35-d546-8ef4-8c19-5732eb0852da.htm" />
+  <HelpKINode Title="Pause method" Url="html/5bdcf6d0-1ed5-5a44-8540-e3251babe0fb.htm" />
+  <HelpKINode Title="PlaybackDisplayPosition property" Url="html/dc375c2a-7894-534f-cc77-91a0ef6e5acf.htm" />
+  <HelpKINode Title="PlaybackPaused field" Url="html/62b2a1a3-500d-9904-384b-7f9c5e97b74b.htm" />
+  <HelpKINode Title="PlaybackPositionMarker property" Url="html/3470310f-7791-cba2-7d53-e81f73b1e667.htm" />
+  <HelpKINode Title="Player class">
+    <HelpKINode Title="Player Class" Url="html/7ee777aa-6d48-1ab0-440b-4d5664738508.htm" />
+    <HelpKINode Title="constructor" Url="html/6c41af62-7aff-0ba9-c749-cc512686ca82.htm" />
+    <HelpKINode Title="fields" Url="html/6e9bcea7-9df0-b636-db96-4072c87acea7.htm" />
+    <HelpKINode Title="methods" Url="html/16340e44-9981-ed30-2303-174f8afb70fd.htm" />
+    <HelpKINode Title="properties" Url="html/b6cd7ff8-e410-fecb-bc04-6e6e21dc0d20.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Player.AddSelectedMusicToPlaylist method" Url="html/896b3872-f495-50b1-1b25-e2ea59e20010.htm" />
+  <HelpKINode Title="Player.CurrentPlayedID property" Url="html/261e1c79-d5ce-d434-0ff0-0e0387783ed1.htm" />
+  <HelpKINode Title="Player.CurrentPlayedPath property" Url="html/bf43f7e0-f5f7-25c5-1da1-d5fef79b9951.htm" />
+  <HelpKINode Title="Player.CurrentSongDuration property" Url="html/a930fae7-966b-df0d-8333-83249e11faf6.htm" />
+  <HelpKINode Title="Player.CurrentSongRemainingTime property" Url="html/3ea7c399-1654-4e41-daea-0e9c363fb8b8.htm" />
+  <HelpKINode Title="Player.CurrentSongTime property" Url="html/15419a56-726b-6026-111e-5318c0a47849.htm" />
+  <HelpKINode Title="Player.DeleteCurrentPlayingSong method" Url="html/a3a86169-46c7-f242-be3f-10c4cab84d60.htm" />
+  <HelpKINode Title="Player.Next method" Url="html/7f038b35-d546-8ef4-8c19-5732eb0852da.htm" />
+  <HelpKINode Title="Player.Pause method" Url="html/5bdcf6d0-1ed5-5a44-8540-e3251babe0fb.htm" />
+  <HelpKINode Title="Player.PlaybackDisplayPosition property" Url="html/dc375c2a-7894-534f-cc77-91a0ef6e5acf.htm" />
+  <HelpKINode Title="Player.PlaybackPaused field" Url="html/62b2a1a3-500d-9904-384b-7f9c5e97b74b.htm" />
+  <HelpKINode Title="Player.PlaybackPositionMarker property" Url="html/3470310f-7791-cba2-7d53-e81f73b1e667.htm" />
+  <HelpKINode Title="Player.Player constructor" Url="html/6c41af62-7aff-0ba9-c749-cc512686ca82.htm" />
+  <HelpKINode Title="Player.PlaylistCount property" Url="html/7df6330e-70b6-977a-8d7e-b261fb5dd2db.htm" />
+  <HelpKINode Title="Player.PlayStateChanged delegate" Url="html/e8f9b26e-c3fa-11d5-0bd5-eee668da329c.htm" />
+  <HelpKINode Title="Player.playStateChanged field" Url="html/02f18a61-05e1-5b06-7a7a-d2997376aa79.htm" />
+  <HelpKINode Title="Player.Previous method" Url="html/2287677f-359a-9d01-e808-ad0fa93fab7e.htm" />
+  <HelpKINode Title="Player.Repeat field" Url="html/3a3e8063-da03-c862-60fd-047c2d8183d2.htm" />
+  <HelpKINode Title="Player.Resume method" Url="html/d18c8f3d-f9b0-5f68-24bf-2350d78f097a.htm" />
+  <HelpKINode Title="Player.SetPlaybackMarker method" Url="html/2829da79-e4c9-0b5a-a324-bca9f64530c6.htm" />
+  <HelpKINode Title="Player.SetVolume method" Url="html/5356c711-5f1c-553e-4599-5c642fc66efb.htm" />
+  <HelpKINode Title="Player.Shuffle property" Url="html/0561490c-e427-bb60-5d24-3da7da40d134.htm" />
+  <HelpKINode Title="Player.SongAlbum property" Url="html/1248e08b-f474-01b0-d195-51af0d5bee8d.htm" />
+  <HelpKINode Title="Player.SongArtist property" Url="html/2c4b125e-24fb-fefc-e4b8-6723c9faf3fb.htm" />
+  <HelpKINode Title="Player.SongTitle property" Url="html/aa40f475-9031-3d6d-7bb1-af3e86bd0133.htm" />
+  <HelpKINode Title="Player.Volume field" Url="html/6c675a4b-7cdb-febe-9bde-83b7b96c9ad4.htm" />
+  <HelpKINode Title="PlaylistCount property" Url="html/7df6330e-70b6-977a-8d7e-b261fb5dd2db.htm" />
+  <HelpKINode Title="playStateChanged field" Url="html/02f18a61-05e1-5b06-7a7a-d2997376aa79.htm" />
+  <HelpKINode Title="Previous method" Url="html/2287677f-359a-9d01-e808-ad0fa93fab7e.htm" />
+  <HelpKINode Title="Repeat field" Url="html/3a3e8063-da03-c862-60fd-047c2d8183d2.htm" />
+  <HelpKINode Title="Resume method" Url="html/d18c8f3d-f9b0-5f68-24bf-2350d78f097a.htm" />
+  <HelpKINode Title="SetPlaybackMarker method" Url="html/2829da79-e4c9-0b5a-a324-bca9f64530c6.htm" />
+  <HelpKINode Title="SetVolume method" Url="html/5356c711-5f1c-553e-4599-5c642fc66efb.htm" />
+  <HelpKINode Title="Shuffle property" Url="html/0561490c-e427-bb60-5d24-3da7da40d134.htm" />
+  <HelpKINode Title="SongAlbum property" Url="html/1248e08b-f474-01b0-d195-51af0d5bee8d.htm" />
+  <HelpKINode Title="SongArtist property" Url="html/2c4b125e-24fb-fefc-e4b8-6723c9faf3fb.htm" />
+  <HelpKINode Title="SongTitle property" Url="html/aa40f475-9031-3d6d-7bb1-af3e86bd0133.htm" />
+  <HelpKINode Title="Volume field" Url="html/6c675a4b-7cdb-febe-9bde-83b7b96c9ad4.htm" />
+</HelpKI>

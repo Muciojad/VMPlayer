@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="38f0ed30-f9b9-47e6-9816-3061f11b45f5" Title="Logic" Url="html/a395d476-45cf-a4e3-1310-e5365a23597b.htm">
+    <HelpTOCNode Id="2dd6ff7d-f87e-4e65-8359-9c2b71b2e8a7" Title="Player Class" Url="html/7ee777aa-6d48-1ab0-440b-4d5664738508.htm">
+      <HelpTOCNode Title="Player Constructor " Url="html/6c41af62-7aff-0ba9-c749-cc512686ca82.htm" />
+      <HelpTOCNode Id="570ebb16-ee27-4aa7-a124-95a06368668a" Title="Player Properties" Url="html/b6cd7ff8-e410-fecb-bc04-6e6e21dc0d20.htm">
+        <HelpTOCNode Title="CurrentPlayedID Property " Url="html/261e1c79-d5ce-d434-0ff0-0e0387783ed1.htm" />
+        <HelpTOCNode Title="CurrentPlayedPath Property " Url="html/bf43f7e0-f5f7-25c5-1da1-d5fef79b9951.htm" />
+        <HelpTOCNode Title="CurrentSongDuration Property " Url="html/a930fae7-966b-df0d-8333-83249e11faf6.htm" />
+        <HelpTOCNode Title="CurrentSongRemainingTime Property " Url="html/3ea7c399-1654-4e41-daea-0e9c363fb8b8.htm" />
+        <HelpTOCNode Title="CurrentSongTime Property " Url="html/15419a56-726b-6026-111e-5318c0a47849.htm" />
+        <HelpTOCNode Title="PlaybackDisplayPosition Property " Url="html/dc375c2a-7894-534f-cc77-91a0ef6e5acf.htm" />
+        <HelpTOCNode Title="PlaybackPositionMarker Property " Url="html/3470310f-7791-cba2-7d53-e81f73b1e667.htm" />
+        <HelpTOCNode Title="PlaylistCount Property " Url="html/7df6330e-70b6-977a-8d7e-b261fb5dd2db.htm" />
+        <HelpTOCNode Title="Shuffle Property " Url="html/0561490c-e427-bb60-5d24-3da7da40d134.htm" />
+        <HelpTOCNode Title="SongAlbum Property " Url="html/1248e08b-f474-01b0-d195-51af0d5bee8d.htm" />
+        <HelpTOCNode Title="SongArtist Property " Url="html/2c4b125e-24fb-fefc-e4b8-6723c9faf3fb.htm" />
+        <HelpTOCNode Title="SongTitle Property " Url="html/aa40f475-9031-3d6d-7bb1-af3e86bd0133.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6a9ec623-9726-49aa-af18-e215938063eb" Title="Player Methods" Url="html/16340e44-9981-ed30-2303-174f8afb70fd.htm">
+        <HelpTOCNode Title="AddSelectedMusicToPlaylist Method " Url="html/896b3872-f495-50b1-1b25-e2ea59e20010.htm" />
+        <HelpTOCNode Title="DeleteCurrentPlayingSong Method " Url="html/a3a86169-46c7-f242-be3f-10c4cab84d60.htm" />
+        <HelpTOCNode Title="Next Method " Url="html/7f038b35-d546-8ef4-8c19-5732eb0852da.htm" />
+        <HelpTOCNode Title="Pause Method " Url="html/5bdcf6d0-1ed5-5a44-8540-e3251babe0fb.htm" />
+        <HelpTOCNode Title="Previous Method " Url="html/2287677f-359a-9d01-e808-ad0fa93fab7e.htm" />
+        <HelpTOCNode Title="Resume Method " Url="html/d18c8f3d-f9b0-5f68-24bf-2350d78f097a.htm" />
+        <HelpTOCNode Title="SetPlaybackMarker Method " Url="html/2829da79-e4c9-0b5a-a324-bca9f64530c6.htm" />
+        <HelpTOCNode Title="SetVolume Method " Url="html/5356c711-5f1c-553e-4599-5c642fc66efb.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f56db6de-3440-4ffc-9e17-bcf1a392ad5d" Title="Player Fields" Url="html/6e9bcea7-9df0-b636-db96-4072c87acea7.htm">
+        <HelpTOCNode Title="PlaybackPaused Field" Url="html/62b2a1a3-500d-9904-384b-7f9c5e97b74b.htm" />
+        <HelpTOCNode Title="playStateChanged Field" Url="html/02f18a61-05e1-5b06-7a7a-d2997376aa79.htm" />
+        <HelpTOCNode Title="Repeat Field" Url="html/3a3e8063-da03-c862-60fd-047c2d8183d2.htm" />
+        <HelpTOCNode Title="Volume Field" Url="html/6c675a4b-7cdb-febe-9bde-83b7b96c9ad4.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="Player.PlayStateChanged Delegate" Url="html/e8f9b26e-c3fa-11d5-0bd5-eee668da329c.htm" />
+  </HelpTOCNode>
+</HelpTOC>
