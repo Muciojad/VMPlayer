@@ -1,0 +1,8 @@
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\bin\Release\Logic.dll
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\bin\Release\Logic.pdb
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\obj\Release\Interop.WMPLib.dll
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\obj\Release\Logic.csproj.ResolveComReference.cache
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\obj\Release\Logic.csproj.CoreCompileInputs.cache
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\obj\Release\Logic.dll
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\obj\Release\Logic.pdb
+C:\Users\Muciojad\Documents\VS_Docs\repo\VMPlayer\VMPlayer\Logic\obj\Release\Logic.csprojResolveAssemblyReference.cache

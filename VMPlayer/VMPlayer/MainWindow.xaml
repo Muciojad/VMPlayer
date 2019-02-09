@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VMPlayer"
         mc:Ignorable="d"
-        Title="VMPlayer" Height="465" Width="300" Background="#FF252525">
+        Title="VMPlayer" Height="465" Width="300" Background="#FF252525" ResizeMode="NoResize">
 
     <Grid OpacityMask="White" Background="#FF252525">
         <Grid.ColumnDefinitions>

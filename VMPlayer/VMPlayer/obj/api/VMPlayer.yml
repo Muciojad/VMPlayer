@@ -1,0 +1,28 @@
+### YamlMime:ManagedReference
+items:
+- uid: VMPlayer
+  commentId: N:VMPlayer
+  id: VMPlayer
+  children:
+  - VMPlayer.App
+  - VMPlayer.MainWindow
+  langs:
+  - csharp
+  - vb
+  name: VMPlayer
+  nameWithType: VMPlayer
+  fullName: VMPlayer
+  type: Namespace
+  assemblies:
+  - VMPlayer
+references:
+- uid: VMPlayer.App
+  commentId: T:VMPlayer.App
+  name: App
+  nameWithType: App
+  fullName: VMPlayer.App
+- uid: VMPlayer.MainWindow
+  commentId: T:VMPlayer.MainWindow
+  name: MainWindow
+  nameWithType: MainWindow
+  fullName: VMPlayer.MainWindow

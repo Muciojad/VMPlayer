@@ -1,0 +1,8 @@
+### YamlMime:TableOfContent
+- uid: VMPlayer
+  name: VMPlayer
+  items:
+  - uid: VMPlayer.App
+    name: App
+  - uid: VMPlayer.MainWindow
+    name: MainWindow

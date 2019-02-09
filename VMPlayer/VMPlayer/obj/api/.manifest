@@ -1,0 +1,9 @@
+{
+  "VMPlayer": "VMPlayer.yml",
+  "VMPlayer.App": "VMPlayer.App.yml",
+  "VMPlayer.App.InitializeComponent": "VMPlayer.App.yml",
+  "VMPlayer.App.Main": "VMPlayer.App.yml",
+  "VMPlayer.MainWindow": "VMPlayer.MainWindow.yml",
+  "VMPlayer.MainWindow.#ctor": "VMPlayer.MainWindow.yml",
+  "VMPlayer.MainWindow.InitializeComponent": "VMPlayer.MainWindow.yml"
+}

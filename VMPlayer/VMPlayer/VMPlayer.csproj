@@ -87,17 +87,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="api\index.md" />
-    <None Include="articles\intro.md" />
-    <None Include="articles\toc.md" />
-    <None Include="docfx.json" />
-    <None Include="index.md" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="toc.yml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -109,8 +102,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
-    <Content Include="api\.gitignore" />
     <Resource Include="images\couple-of-arrows-changing-places.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -151,11 +142,4 @@
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\docfx.console.2.40.7\build\docfx.console.targets" Condition="Exists('..\packages\docfx.console.2.40.7\build\docfx.console.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\docfx.console.2.40.7\build\docfx.console.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\docfx.console.2.40.7\build\docfx.console.targets'))" />
-  </Target>
 </Project>
